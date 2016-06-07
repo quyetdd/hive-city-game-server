@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{256FD18D-1FCF-46F5-9DCE-772ABC5738DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HiveCity.Server.Proxy</RootNamespace>
+    <AssemblyName>HiveCity.Server.Proxy</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Photon SDK\deploy\HiveCityMmo\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGames.Logging.Log4Net">
+      <HintPath>..\..\Photon SDK\lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGamesLibs">
+      <HintPath>..\..\Photon SDK\lib\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Photon SDK\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\..\Photon SDK\lib\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces">
+      <HintPath>..\..\Photon SDK\lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\HandleClientChatRequests.cs" />
+    <Compile Include="Handlers\HandleClientRegionRequests.cs" />
+    <Compile Include="Handlers\HandleClientLoginRequests.cs" />
+    <Compile Include="Handlers\LoginResponseHandler.cs" />
+    <Compile Include="Handlers\SelectCharacterResponseHandler.cs" />
+    <Compile Include="ProxyConnectionCollection.cs" />
+    <Compile Include="ProxyServer.cs" />
+    <Compile Include="Handlers\EventForwardHandler.cs" />
+    <Compile Include="Handlers\RequestForwardHandler.cs" />
+    <Compile Include="Handlers\ResponseForwardHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HiveCity.Server\HiveCity.Server.Framework\HiveCity.Server.Framework.csproj">
+      <Project>{8b67bf1e-9fda-4362-b33a-bc6e26116a2f}</Project>
+      <Name>HiveCity.Server.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HiveCity.Server\HiveCity.Server.Photon\HiveCity.Server.Photon.csproj">
+      <Project>{5530cfb1-b30a-4ec6-9589-a2883196e0b4}</Project>
+      <Name>HiveCity.Server.Photon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiveCity.Server.Proxy.Common\HiveCity.Server.Proxy.Common.csproj">
+      <Project>{b3508939-0322-4b08-8ca4-308238a79a8b}</Project>
+      <Name>HiveCity.Server.Proxy.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiveCity.Server.Sub.Common\HiveCity.Server.Sub.Common.csproj">
+      <Project>{3b8aaabd-8bcf-42c4-8fb3-20836e7637fd}</Project>
+      <Name>HiveCity.Server.Sub.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
