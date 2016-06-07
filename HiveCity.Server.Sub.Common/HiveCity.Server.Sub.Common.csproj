@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{256FD18D-1FCF-46F5-9DCE-772ABC5738DD}</ProjectGuid>
+    <ProjectGuid>{3B8AAABD-8BCF-42C4-8FB3-20836E7637FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HiveCity.Server.Proxy</RootNamespace>
-    <AssemblyName>HiveCity.Server.Proxy</AssemblyName>
+    <RootNamespace>HiveCity.Server.Sub.Common</RootNamespace>
+    <AssemblyName>HiveCity.Server.Sub.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Photon SDK\deploy\HiveCityMmo\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,18 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="ExitGames.Logging.Log4Net">
       <HintPath>..\..\Photon SDK\lib\ExitGames.Logging.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="ExitGamesLibs">
       <HintPath>..\..\Photon SDK\lib\ExitGamesLibs.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\Photon SDK\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Photon.SocketServer">
       <HintPath>..\..\Photon SDK\lib\Photon.SocketServer.dll</HintPath>
@@ -53,7 +58,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,44 +65,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\HandleClientChatRequests.cs" />
-    <Compile Include="Handlers\HandleClientRegionRequests.cs" />
-    <Compile Include="Handlers\HandleClientLoginRequests.cs" />
-    <Compile Include="Handlers\LoginResponseHandler.cs" />
-    <Compile Include="Handlers\SelectCharacterResponseHandler.cs" />
-    <Compile Include="ProxyConnectionCollection.cs" />
-    <Compile Include="ProxyServer.cs" />
-    <Compile Include="Handlers\EventForwardHandler.cs" />
-    <Compile Include="Handlers\RequestForwardHandler.cs" />
-    <Compile Include="Handlers\ResponseForwardHandler.cs" />
+    <Compile Include="Data\ClientData\CharacterData.cs" />
+    <Compile Include="Data\ClientData\ChatPlayer.cs" />
+    <Compile Include="Data\ClientData\ServerData.cs" />
+    <Compile Include="Data\Mapping\PlayerCharacterMap.cs" />
+    <Compile Include="Data\Mapping\UserMap.cs" />
+    <Compile Include="Data\Mapping\UserProfileMap.cs" />
+    <Compile Include="Data\NHibernate\PlayerCharacter.cs" />
+    <Compile Include="Data\NHibernate\RegionRecord.cs" />
+    <Compile Include="Data\Mapping\RegionRecordMap.cs" />
+    <Compile Include="Data\NHibernate\User.cs" />
+    <Compile Include="Data\NHibernate\UserProfile.cs" />
+    <Compile Include="Data\RegisterSubServerData.cs" />
+    <Compile Include="Handlers\ErrorEventForwardHandler.cs" />
+    <Compile Include="Handlers\ErrorRequestForwardHandler.cs" />
+    <Compile Include="Handlers\ErrorResponseForwardHandler.cs" />
+    <Compile Include="Handlers\HandleServerRegistration.cs" />
+    <Compile Include="Math\RandomExtensions.cs" />
+    <Compile Include="NHibernateHelper.cs" />
+    <Compile Include="Operations\RegisterSubServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerEventCode.cs" />
+    <Compile Include="ServerOperationCode.cs" />
+    <Compile Include="ServerParameterCode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HiveCity.Server\HiveCity.Server.Framework\HiveCity.Server.Framework.csproj">
+    <ProjectReference Include="..\HiveCity.Server.Framework\HiveCity.Server.Framework.csproj">
       <Project>{8b67bf1e-9fda-4362-b33a-bc6e26116a2f}</Project>
       <Name>HiveCity.Server.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HiveCity.Server\HiveCity.Server.Photon\HiveCity.Server.Photon.csproj">
+    <ProjectReference Include="..\HiveCity.Server.Photon\HiveCity.Server.Photon.csproj">
       <Project>{5530cfb1-b30a-4ec6-9589-a2883196e0b4}</Project>
       <Name>HiveCity.Server.Photon</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiveCity.Server.Proxy.Common\HiveCity.Server.Proxy.Common.csproj">
-      <Project>{b3508939-0322-4b08-8ca4-308238a79a8b}</Project>
+      <Project>{B3508939-0322-4B08-8CA4-308238A79A8B}</Project>
       <Name>HiveCity.Server.Proxy.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HiveCity.Server.Sub.Common\HiveCity.Server.Sub.Common.csproj">
-      <Project>{3b8aaabd-8bcf-42c4-8fb3-20836e7637fd}</Project>
-      <Name>HiveCity.Server.Sub.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
